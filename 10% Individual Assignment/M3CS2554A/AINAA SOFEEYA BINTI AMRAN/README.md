@@ -1,1 +1,1 @@
-# Parallel Palindrome Hunter
+# PARALLEL PALINDROME HUNTER
