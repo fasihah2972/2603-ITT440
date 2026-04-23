@@ -257,14 +257,21 @@ if __name__ == "__main__":
 
 
 Sample Input
-
-
-
+```bash  
+ TOTAL_ROLLS = 1_000_000
+```
 
 Sample Output
 
+<img width="366" height="329" alt="Screenshot 2026-04-23 213316" src="https://github.com/user-attachments/assets/480bbd49-a34a-4a3b-862d-1ff42b2cb0e7" />
+
+<img width="329" height="333" alt="Screenshot 2026-04-23 213329" src="https://github.com/user-attachments/assets/64bb94d4-5bdc-4d60-a6b7-7a44cbf02369" />
+
+<img width="352" height="334" alt="image" src="https://github.com/user-attachments/assets/620cdfdd-736d-4a23-ac51-bb8561b8e662" />
+
+
 -----------------------
-📌 Conclusion
+#📌 Conclusion
 
 This program demonstrates how:
 
