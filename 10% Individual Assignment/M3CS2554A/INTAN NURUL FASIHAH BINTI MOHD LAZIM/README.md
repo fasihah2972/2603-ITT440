@@ -1,4 +1,4 @@
-# 🎲 PARALLEL DICE COMBINATION SIMULATOR
+<img width="1064" height="988" alt="image" src="https://github.com/user-attachments/assets/7e92843a-e25a-44c5-8b7e-7a633fa838fa" /># 🎲 PARALLEL DICE COMBINATION SIMULATOR
 
 **NAME:** INTAN NURUL FASIHAH BINTI MOHD LAZIM
 
@@ -20,6 +20,7 @@ The goal is to compare performance and efficiency when processing large-scale da
   
   ------------
  ## 🎯 OBJECTIVE
+ 
 - Simulate large numbers of dice rolls
 - Implement sequential processing as baseline
 - Apply threading for concurrent execution
@@ -27,6 +28,7 @@ The goal is to compare performance and efficiency when processing large-scale da
 - Compare execution time between methods
 - Analyze distribution of dice outcomes
 -----------
+
 ## 💻 SYSTEM REQUIREMENT
 Hardware Requirements:
 - Minumum 4GB RAM
@@ -36,12 +38,11 @@ Software Requirement
 - Operating System: Windows
 - Python version : 3.8 and above
 
-Required Libraries (Built-in)
-- random - for dice simulation
-- time - for performance measurement
-- threading - for concurrent execution
-- multiprocessing - for parallel execution
-
+Python Libraries (Built-in)
+- ```bash  random```
+- ```bash  time```
+- ```bash  threading```
+- ```bash  multiprocessing```
   --------------
   ## ⚙️ INSTALLATION GUIDE
 Step 1: Start Virtual Machine
@@ -90,28 +91,22 @@ In nano:
 
  ## ▶️ 5. How It Runs in Kali Linux
 
-When you run:
-```bash python3 main.py```
-
-The program will:
-
-1.Simulate dice rolls
-2. Execute:
- - Sequential
- - Threading
- - Multiprocessing
- - Display execution time
- - Show dice combination results
-
-⚠️ Important Notes for Kali Linux
-1. Multiprocessing Requirement
-
-Make sure your code includes:
-```bash
-if __name__ == "__main__":
-    main()
+Run the program using:
+```bash  
+python3 main.py
 ```
-✔ This is mandatory in Linux & Windows
+What Happens When You Run
+
+Program simulates dice rolls
+Executes:
+- Sequential method
+- Threading (concurrent)
+- Multiprocessing (parallel)
+- Measures execution time
+- Displays analytics:
+- Frequency
+- Percentage
+ Most/least common values
 
 2. Performance in VM
 
@@ -134,19 +129,149 @@ instead of:
 ```
 
 -------------------
-# 📊 Analytics
+💻 Source Code
+
+```bash
+import random
+import time
+from threading import Thread
+from multiprocessing import Process, Manager, cpu_count
+
+def roll_dice():
+    return random.randint(1, 6) + random.randint(1, 6)
+
+def print_analytics(result, total):
+    print("\n--- Analytics ---")
+    print(f"Total Rolls: {total}")
+
+    max_key = max(result, key=result.get)
+    min_key = min(result, key=result.get)
+
+    for key in sorted(result):
+        percentage = (result[key] / total) * 100
+        print(f"{key}: {result[key]} ({percentage:.2f}%)")
+
+    print(f"\nMost common sum: {max_key}")
+    print(f"Least common sum: {min_key}")
+
+def run_sequential(n):
+    print("\n--- Sequential ---")
+    result = {i: 0 for i in range(2, 13)}
+
+    start = time.time()
+    for _ in range(n):
+        result[roll_dice()] += 1
+    end = time.time()
+
+    print(f"Time: {end - start:.2f} seconds")
+    print_analytics(result, n)
+
+def thread_worker(n, result):
+    local = {i: 0 for i in range(2, 13)}
+
+    for _ in range(n):
+        local[roll_dice()] += 1
+
+    for k in local:
+        result[k] += local[k]
+
+def run_threading(n, threads=4):
+    print("\n--- Threading (Concurrent) ---")
+    result = {i: 0 for i in range(2, 13)}
+
+    chunk = n // threads
+    threads_list = []
+
+    start = time.time()
+
+    for _ in range(threads):
+        t = Thread(target=thread_worker, args=(chunk, result))
+        t.start()
+        threads_list.append(t)
+
+    for t in threads_list:
+        t.join()
+
+    end = time.time()
+
+    print(f"Time: {end - start:.2f} seconds")
+    print_analytics(result, n)
+
+def process_worker(n, shared):
+    local = {i: 0 for i in range(2, 13)}
+
+    for _ in range(n):
+        local[roll_dice()] += 1
+
+    for k in local:
+        shared[k] += local[k]
+
+def run_multiprocessing(n):
+    print("\n--- Multiprocessing (Parallel) ---")
+
+    manager = Manager()
+    result = manager.dict({i: 0 for i in range(2, 13)})
+
+    processes = []
+    cores = cpu_count()
+    chunk = n // cores
+
+    start = time.time()
+
+    for _ in range(cores):
+        p = Process(target=process_worker, args=(chunk, result))
+        p.start()
+        processes.append(p)
+
+    for p in processes:
+        p.join()
+
+    end = time.time()
+
+    print(f"Time: {end - start:.2f} seconds")
+    print_analytics(dict(result), n)
+
+def main():
+    TOTAL_ROLLS = 1_000_000
+
+    print(f"Simulating {TOTAL_ROLLS:,} dice rolls...")
+    run_sequential(TOTAL_ROLLS)
+    run_threading(TOTAL_ROLLS)
+    run_multiprocessing(TOTAL_ROLLS)
+
+if __name__ == "__main__":
+    main()
+-------------------
 
 
-
-
-
+```
 
 -----------------------
+#📈 Result Analysis
+
+
+--------------------------------
+
+# Sample Input / Output
+
+
+Sample Input
 
 
 
 
+Sample Output
 
+-----------------------
+📌 Conclusion
+
+This program demonstrates how:
+
+- Sequential processing works step-by-step
+- Threading improves performance using concurrency
+- Multiprocessing achieves the best performance using parallel execution
+
+The results also confirm the probability distribution of dice combinations, where 7 is the most frequent outcome.
   
 
   
