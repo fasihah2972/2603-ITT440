@@ -100,7 +100,7 @@ The system generates a bar chart to compare execution time between:
 
 📌  *Graph image is shown below.*
 
-![Performance Graph](FIGURE 1.jpg)
+![Performance Graph](FIGURE1.jpg)
 
 ## 🧠 Conclusion
 
