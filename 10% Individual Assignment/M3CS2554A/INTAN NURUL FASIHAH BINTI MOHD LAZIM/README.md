@@ -26,7 +26,6 @@ The goal is to compare performance and efficiency when processing large-scale da
 - Apply threading for concurrent execution
 - Apply multiprocessing for parallel execution
 - Compare execution time between methods
-- Analyze distribution of dice outcomes
 -----------
 
 ## 💻 SYSTEM REQUIREMENT
