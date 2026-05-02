@@ -91,7 +91,7 @@ In nano:
 - Press ```bashY```
 - Press ```bashEnter```
 
- ## ▶️ 5. How It Runs in Kali Linux
+ ## ▶️ How It Runs in Kali Linux
 
 Run the program using:
 ```bash  
